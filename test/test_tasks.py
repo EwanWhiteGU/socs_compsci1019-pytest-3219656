@@ -59,6 +59,20 @@ def test_display_player_console_output(capsys):
 
 # Sub-task 5
 def test_create_csv_reader_valid_data(tmp_path):
-    pass
+    csv_file = tmp_path / "card_player.csv"
+
+    csv_file.write_text(
+        "DEALER,Star Dealer\n"
+        "COMPUTER,King Computer\n"
+        "COMPUTER,Queen Computer\n"
+    )
+
+    reader = create_csv_reader(str(csv_file))
+
+    lines = [line.strip() for line in reader.readlines()]
+    reader.close()
+
+    assert len(lines) == 3
+    assert lines[0] == "DEALER,Star Dealer"
 
 
